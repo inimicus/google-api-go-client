@@ -14,7 +14,6 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"google.golang.org/api/googleapi"
 	"io"
 	"mime"
 	"mime/multipart"
@@ -25,6 +24,8 @@ import (
 	"strconv"
 	"strings"
 	"sync"
+
+	"google.golang.org/api/googleapi"
 )
 
 const baseURL = "https://www.googleapis.com/batch"
@@ -270,7 +271,7 @@ func (s *Service) Do() ([]Response, error) {
 	}
 
 	if reqLen > maxRequests {
-		s.requests = make([]*Request, (reqLen - maxRequests), maxRequests)
+		s.requests = make([]*Request, (reqLen - maxRequests), (reqLen - maxRequests))
 		copy(s.requests, requests[maxRequests:])
 		requests = requests[:maxRequests]
 	} else {
